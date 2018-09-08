@@ -15,6 +15,7 @@
 		42487BE7214371E4004D59B7 /* EmergencyContactsInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42487BE6214371E4004D59B7 /* EmergencyContactsInfoTableViewController.swift */; };
 		42487BEB21437236004D59B7 /* EmergencyInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42487BEA21437236004D59B7 /* EmergencyInput.swift */; };
 		42487BEF21437430004D59B7 /* icons8-ambulance-25.png in Resources */ = {isa = PBXBuildFile; fileRef = 42487BEE21437430004D59B7 /* icons8-ambulance-25.png */; };
+		42487BF121437843004D59B7 /* EmergencyContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42487BF021437843004D59B7 /* EmergencyContact.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		42487BE6214371E4004D59B7 /* EmergencyContactsInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyContactsInfoTableViewController.swift; sourceTree = "<group>"; };
 		42487BEA21437236004D59B7 /* EmergencyInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyInput.swift; sourceTree = "<group>"; };
 		42487BEE21437430004D59B7 /* icons8-ambulance-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-ambulance-25.png"; path = "../../../../Downloads/icons8-ambulance-25.png"; sourceTree = "<group>"; };
+		42487BF021437843004D59B7 /* EmergencyContact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyContact.swift; sourceTree = "<group>"; };
 		825E5EF3142E2B2320CA6AD2 /* Pods_HackForResilienceApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HackForResilienceApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CDC4603C9EDBC889178FA21 /* Pods-HackForResilienceApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HackForResilienceApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HackForResilienceApp/Pods-HackForResilienceApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -68,6 +70,7 @@
 				42487BEA21437236004D59B7 /* EmergencyInput.swift */,
 				42487BE6214371E4004D59B7 /* EmergencyContactsInfoTableViewController.swift */,
 				3AC69360214369F6006A3A11 /* AppDelegate.swift */,
+				42487BF021437843004D59B7 /* EmergencyContact.swift */,
 				3AC69364214369F6006A3A11 /* Main.storyboard */,
 				42487BEE21437430004D59B7 /* icons8-ambulance-25.png */,
 				3AC69367214369F7006A3A11 /* Assets.xcassets */,
@@ -207,6 +210,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42487BF121437843004D59B7 /* EmergencyContact.swift in Sources */,
 				42487BEB21437236004D59B7 /* EmergencyInput.swift in Sources */,
 				3AC69361214369F6006A3A11 /* AppDelegate.swift in Sources */,
 				42487BE7214371E4004D59B7 /* EmergencyContactsInfoTableViewController.swift in Sources */,
