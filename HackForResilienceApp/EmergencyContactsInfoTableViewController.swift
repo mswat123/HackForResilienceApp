@@ -9,87 +9,142 @@
 import UIKit
 
 class EmergencyContactsInfoTableViewController: UITableViewController {
+    
+    var contactArray = [Contact]()
+    var contact: Contact!
+    var currentNewPerson: Int = 0
 
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Contacts.plist")
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        loadContacts()
+        
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        
+        return contactArray.count
+        
     }
-
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ContactCell", for: indexPath)
+        
+        let person = contactArray[indexPath.row]
 
-        // Configure the cell...
+        if person.phoneNumber == "remove" {
+            let alert = UIAlertController(title: "Contact Imcomplete", message: "Recently Added/Edited Contact (\(person.name)) Deleted due to Incomplete Information", preferredStyle: .alert)
+            let cancel = UIAlertAction(title: "OK", style: .cancel, handler: { (action) in
+            })
+            alert.addAction(cancel)
+            self.present(alert, animated: true, completion: nil)
+            contactArray.remove(at: indexPath.row)
+            currentNewPerson = currentNewPerson - 1
+            SaveContacts()
+            
+        } else {
+            cell.textLabel?.text = "\(person.name) #\(person.displayPhoneNumber)"
 
+        }
+        
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
-
-    /*
-    // Override to support editing the table view.
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        if (editingStyle == .delete) {
+            let alert = UIAlertController(title: "Delete Contact", message: "Are You Sure You Want to Delete Contact?", preferredStyle: .alert)
+            let delete = UIAlertAction(title: "Delete", style: .default, handler: { (action) in
+                self.contactArray.remove(at: indexPath.item)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                self.currentNewPerson = self.currentNewPerson - 1
+                self.SaveContacts()
+            })
+            
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+            })
+            alert.addAction(delete)
+            alert.addAction(cancel)
+            self.present(alert, animated: true, completion: nil)
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        currentNewPerson = tableView.numberOfRows(inSection: 0)
+        SaveContacts()
+        self.tableView.reloadData()
+        
     }
-    */
+    @IBAction func AddButtonPressed(_ sender: UIBarButtonItem) {
+        let alert = UIAlertController(title: "Add New Contact", message: "", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+        }
+        let action = UIAlertAction(title: "Add Contact", style: .default) { (action) in
+            
+            let newContact = Contact()
+            self.contactArray.append(newContact)
+            self.SaveContacts()
+            print("new")
 
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+            self.performSegue(withIdentifier: "NewContact", sender: self)
+        }
+        
+        
+        alert.addAction(action)
+        alert.addAction(cancel)
+        
+        present(alert, animated: true, completion: nil)
     }
-    */
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
+    
+    func SaveContacts() {
+        let encoder = PropertyListEncoder()
+        
+        do {
+            let data = try encoder.encode(contactArray)
+            try data.write(to: dataFilePath!)
+            
+        } catch {
+            print("Error encoding team array, \(error)")
+        }
+        
+        self.tableView.reloadData()
+    }
+    
+    func loadContacts() {
+        if let data = try? Data(contentsOf: dataFilePath!) {
+            let decoder = PropertyListDecoder()
+            do {
+                contactArray = try decoder.decode([Contact].self, from: data)
+            } catch {
+                print("Error decoding team array, \(error)")
+            }
+        }
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "ContactSelect" {
+            var ContactInfoViewController = segue.destination as! ContactInfoViewController
+            var selectedIndexPath = tableView.indexPathForSelectedRow
+            ContactInfoViewController.contact = contactArray[selectedIndexPath!.row]
+            ContactInfoViewController.contactIndex = selectedIndexPath!.row
+            ContactInfoViewController.contactArray = contactArray
+            SaveContacts()
+            
+        }
+        if segue.identifier == "NewContact" {
+            var ContactInfoViewController = segue.destination as! ContactInfoViewController
+            ContactInfoViewController.contact = contactArray[currentNewPerson]
+            ContactInfoViewController.contactIndex = currentNewPerson
+            ContactInfoViewController.contactArray = contactArray
+            SaveContacts()
+        
+        }
     }
-    */
 
 }

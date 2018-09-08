@@ -19,13 +19,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="crN-rn-mPs">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactCell" id="crN-rn-mPs">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="crN-rn-mPs" id="Tss-aQ-Hti">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="jUM-cc-rpX" kind="show" identifier="ContactSelect" id="nVI-02-goD"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -33,29 +36,167 @@
                             <outlet property="delegate" destination="6nD-Cl-NOJ" id="Gfr-mF-134"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Contacts" id="lQS-UM-Z5J"/>
+                    <navigationItem key="navigationItem" title="Contacts" id="lQS-UM-Z5J">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="H4f-9E-pLV">
+                            <connections>
+                                <action selector="AddButtonPressed:" destination="6nD-Cl-NOJ" id="WvX-nn-wap"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="jUM-cc-rpX" kind="show" identifier="NewContact" id="KWM-Ya-oV8"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KAE-aO-OBa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2873" y="376"/>
         </scene>
+        <!--Contact Info View Controller-->
+        <scene sceneID="KXm-f9-XOw">
+            <objects>
+                <viewController id="jUM-cc-rpX" customClass="ContactInfoViewController" customModule="HackForResilienceApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TpT-EP-MCs">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WQ2-e5-QrV">
+                                <rect key="frame" x="95" y="175" width="185" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="NameChanged:" destination="jUM-cc-rpX" eventType="editingChanged" id="EYb-0z-fu4"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name (Incomplete)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bU1-uX-B7C">
+                                <rect key="frame" x="110" y="134" width="153" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Phone Number (Incomplete)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qH5-9a-Shv">
+                                <rect key="frame" x="74" y="257" width="228" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2LM-WY-3HJ">
+                                <rect key="frame" x="95" y="299" width="185" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <action selector="NumberChanged:" destination="jUM-cc-rpX" eventType="editingDidEnd" id="NV5-hj-Lxa"/>
+                                    <action selector="NumberChanged:" destination="jUM-cc-rpX" eventType="editingChanged" id="hMN-El-qkL"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="5ak-4i-gjg"/>
+                    </view>
+                    <connections>
+                        <outlet property="NameInput" destination="WQ2-e5-QrV" id="QDS-sQ-l3U"/>
+                        <outlet property="NameLabel" destination="bU1-uX-B7C" id="U0f-dj-VW0"/>
+                        <outlet property="NumberInput" destination="2LM-WY-3HJ" id="A72-Y5-aqP"/>
+                        <outlet property="NumberLabel" destination="qH5-9a-Shv" id="GhS-cj-dW1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ycS-4Q-iy1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3724" y="378.26086956521743"/>
+        </scene>
         <!--Emergency-->
         <scene sceneID="XuK-d0-xS0">
             <objects>
                 <viewController id="dJc-CC-p24" customClass="EmergencyInput" customModule="HackForResilienceApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="hAG-hR-1SL">
+                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="hAG-hR-1SL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="KVi-sC-u6q">
-                                <rect key="frame" x="79" y="169" width="227" height="30"/>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="KVi-sC-u6q">
+                                <rect key="frame" x="14" y="229" width="347" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="SliderChanged:" destination="dJc-CC-p24" eventType="valueChanged" id="RgG-X0-kvL"/>
+                                </connections>
                             </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Urgency: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qfv-ST-Fr0">
+                                <rect key="frame" x="114" y="266" width="147" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B3L-tm-Fze">
+                                <rect key="frame" x="200" y="97" width="151" height="112"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.57197507999999997" green="1" blue="0.4604175787" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <state key="normal" title="Safe">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleShadowColor" red="0.57197507999999997" green="1" blue="0.4604175787" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="SafeButtonClicked:" destination="dJc-CC-p24" eventType="touchUpInside" id="aZC-Sp-2Po"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jLJ-Nd-boQ">
+                                <rect key="frame" x="25" y="97" width="151" height="112"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.1043915102" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <color key="tintColor" red="0.57197507999999997" green="1" blue="0.4604175787" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Emergency">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleShadowColor" red="1" green="0.1043915102" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="EmergencyButtonClicked:" destination="dJc-CC-p24" eventType="touchUpInside" id="EUx-Zx-Udh"/>
+                                </connections>
+                            </button>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7I8-J6-RLi">
+                                <rect key="frame" x="0.0" y="295" width="375" height="162"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="dJc-CC-p24" id="BSW-B5-syd"/>
+                                    <outlet property="delegate" destination="dJc-CC-p24" id="zoZ-By-bQN"/>
+                                </connections>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cjd-EL-eFo">
+                                <rect key="frame" x="20" y="445" width="335" height="153"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.25267436789999997" blue="0.62770734539999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="SEND ALERT">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="SendButtonClicked:" destination="dJc-CC-p24" eventType="touchUpInside" id="6Nh-Cg-CyM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="sAl-i2-52Z"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Emergency" id="7QW-Ar-UtE"/>
+                    <navigationItem key="navigationItem" title="Emergency" id="7QW-Ar-UtE">
+                        <barButtonItem key="rightBarButtonItem" title="Clear" id="Mea-7H-CN3">
+                            <connections>
+                                <action selector="ClearButtonPressed:" destination="dJc-CC-p24" id="XLt-M9-WUs"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="DisasterPickerView" destination="7I8-J6-RLi" id="Rm8-3e-naW"/>
+                        <outlet property="EmergencyButton" destination="jLJ-Nd-boQ" id="5GO-72-rza"/>
+                        <outlet property="SafeButton" destination="B3L-tm-Fze" id="NrU-Kt-VAI"/>
+                        <outlet property="SendButton" destination="cjd-EL-eFo" id="L9f-mf-v7v"/>
+                        <outlet property="UrgencyLabel" destination="Qfv-ST-Fr0" id="H0n-tX-b81"/>
+                        <outlet property="UrgencySlider" destination="KVi-sC-u6q" id="1Ez-zq-dTP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IlR-uU-xST" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -123,4 +264,7 @@
     <resources>
         <image name="icons8-ambulance-25.png" width="25" height="25"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="nVI-02-goD"/>
+    </inferredMetricsTieBreakers>
 </document>
